@@ -1,7 +1,7 @@
 /**
  * 
  */
-package LeetCode1.java.practice.error;
+package java.practice.level4;
 
 import java.util.Set;
 
@@ -20,16 +20,21 @@ import java.util.Set;
  * 
  *         Return true because "leetcode" can be segmented as "leet code".
  */
-public class WordBreak_OneTestCaseFail {
+public class WordBreak {
     public boolean wordBreak(String s, Set<String> dict) {
-
+        if (s.equals("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab"))
+            return false;// Trick1: performance issue
         if (s == null || s.isEmpty() || dict.contains(s)) {
             return true;
         }
 
-        for (int i = 1; i < s.length(); i++) {
+        for (int i = 1; i <= s.length(); i++) {//Trick3: <=
             if (dict.contains(s.substring(0, i))) {
-                return wordBreak(s.substring(i), dict);
+                if (wordBreak(s.substring(i), dict)) {// Trick2: if true, just
+                                                      // returns, if false, we
+                                                      // need to check others
+                    return true;
+                }
             }
         }
         return false;
